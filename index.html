@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jagged Gem · NEO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'gem-dark': '#0c101f',
+              'gem-cyan': '#00ffff',
+              'gem-magenta': '#ff00ff',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            animation: {
+              'orb-float': 'orb-float 50s infinite linear',
+              'orb-float-rev': 'orb-float 60s infinite reverse linear',
+              'slide-up': 'slide-up 0.4s ease forwards',
+              'gem-glow': 'gem-glow 3s infinite alternate',
+              'blink': 'blink 1.4s infinite both',
+              'bounce-futuristic': 'bounce-futuristic 1.2s cubic-bezier(0.45, 0, 0.55, 1) infinite',
+              'wave': 'wave 1.2s ease-in-out infinite',
+              'pulse-slow': 'pulse-slow 2s infinite ease-in-out',
+              'flash-fast': 'flash-fast 0.4s infinite alternate ease-in-out',
+            },
+            keyframes: {
+              'orb-float': {
+                '0%': { transform: 'rotate(0deg)' },
+                '100%': { transform: 'rotate(360deg)' }
+              },
+              'slide-up': {
+                '0%': { opacity: 0, transform: 'translateY(20px)' },
+                '100%': { opacity: 1, transform: 'translateY(0)' }
+              },
+              'gem-glow': {
+                '0%': { filter: 'drop-shadow(0 0 5px cyan) drop-shadow(0 0 10px magenta)' },
+                '100%': { filter: 'drop-shadow(0 0 15px cyan) drop-shadow(0 0 30px magenta)' }
+              },
+              'blink': {
+                '0%': { opacity: '0.2', transform: 'scale(1)' },
+                '20%': { opacity: '1', transform: 'scale(1.2)' },
+                '100%': { opacity: '0.2', transform: 'scale(1)' }
+              },
+              'bounce-futuristic': {
+                '0%, 100%': { transform: 'translateY(0)', filter: 'drop-shadow(0 0 5px cyan)' },
+                '50%': { transform: 'translateY(-20px)', filter: 'drop-shadow(0 0 20px cyan)' }
+              },
+              'wave': {
+                '0%, 100%': { transform: 'scaleY(0.5)', opacity: '0.5' },
+                '50%': { transform: 'scaleY(1.2)', opacity: '1' }
+              },
+              'pulse-slow': {
+                '0%, 100%': { transform: 'scale(1)', opacity: 0.6, filter: 'drop-shadow(0 0 2px #00ffff)' },
+                '50%': { transform: 'scale(1.15)', opacity: 1, filter: 'drop-shadow(0 0 8px #00ffff)' }
+              },
+              'flash-fast': {
+                '0%': { transform: 'scale(0.95)', opacity: 0.3, filter: 'drop-shadow(0 0 1px #ff00ff)' },
+                '100%': { transform: 'scale(1.2)', opacity: 1, filter: 'drop-shadow(0 0 12px #ff00ff)' }
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      body {
+        background: radial-gradient(circle at 20% 30%, #0c101f, #030303);
+        color: #e5e5e5;
+        font-family: 'Inter', sans-serif;
+        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      /* Orb Styles */
+      .orb {
+        position: fixed;
+        width: 70vmax;
+        height: 70vmax;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, rgba(0, 255, 255, 0.1), transparent 70%);
+        top: -20vmax;
+        right: -20vmax;
+        z-index: -1;
+        pointer-events: none;
+      }
+      .orb.secondary {
+        left: -20vmax;
+        bottom: -20vmax;
+        background: radial-gradient(circle at 70% 70%, rgba(255, 0, 255, 0.1), transparent 70%);
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: rgba(0, 255, 255, 0.05);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: cyan;
+        border-radius: 10px;
+      }
+      
+      .glass-card {
+        background: rgba(8, 18, 28, 0.85);
+        backdrop-filter: blur(24px) saturate(200%);
+        -webkit-backdrop-filter: blur(24px) saturate(200%);
+        border: 1px solid rgba(0, 255, 255, 0.3);
+        box-shadow: 0 30px 70px rgba(0,0,0,0.8), 0 0 0 1px rgba(0, 255, 255, 0.2) inset;
+      }
+      
+      .bubble-user {
+        border-radius: 24px;
+        border-bottom-right-radius: 4px;
+        background: rgba(0, 255, 255, 0.15);
+        border: 1px solid cyan;
+      }
+
+      .bubble-bot {
+        border-radius: 24px;
+        border-bottom-left-radius: 4px;
+        background: rgba(255, 0, 255, 0.12);
+        border: 1px solid magenta;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.41.0",
+    "react-markdown": "https://esm.sh/react-markdown@^10.1.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

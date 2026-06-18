@@ -1,0 +1,10 @@
+{
+  "name": "Copy of Jagged gem",
+  "description": "A high-level investigative intelligence system utilizing advanced Gemini capabilities for forensic analysis, surveillance simulation, and strategic synthesis.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": []
+}

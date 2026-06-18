@@ -1,0 +1,52 @@
+{
+  "entities": {
+    "AppSettings": {
+      "title": "AppSettings",
+      "description": "User configuration and instruction settings",
+      "type": "object",
+      "properties": {
+        "systemInstruction": { "type": "string", "description": "Global custom system message" },
+        "userName": { "type": "string", "description": "The user's customized screen name" }
+      },
+      "required": ["systemInstruction", "userName"]
+    },
+    "ChatSession": {
+      "title": "ChatSession",
+      "description": "An interactive conversational intelligence thread",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "messages": { "type": "array" },
+        "lastModified": { "type": "number" },
+        "module": { "type": "string" }
+      },
+      "required": ["id", "title", "messages", "lastModified", "module"]
+    },
+    "MemoryBank": {
+      "title": "MemoryBank",
+      "description": "User long-term memory cortex bank",
+      "type": "object",
+      "properties": {
+        "summary": { "type": "string" },
+        "facts": { "type": "array" },
+        "lastInteraction": { "type": "number" }
+      },
+      "required": ["summary", "facts", "lastInteraction"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/config/settings": {
+      "schema": "AppSettings",
+      "description": "The user's application configuration settings"
+    },
+    "/users/{userId}/config/memory": {
+      "schema": "MemoryBank",
+      "description": "The user's extracted memory facts and neural link context"
+    },
+    "/users/{userId}/sessions/{sessionId}": {
+      "schema": "ChatSession",
+      "description": "The operational chat threads"
+    }
+  }
+}
